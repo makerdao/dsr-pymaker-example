@@ -18,7 +18,7 @@ This project uses *Python 3.6.6*.
 In order to clone the project and install required third-party packages please execute:
 ```
 git clone https://github.com/makerdao/dsr-pymaker-example
-cd dsrdemo
+cd dsr-pymaker-example
 git submodule update --init --recursive
 ./install.sh
 ```
