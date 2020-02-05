@@ -17,7 +17,7 @@ This project uses *Python 3.6.6*.
 
 In order to clone the project and install required third-party packages please execute:
 ```
-git clone https://github.com/makerdao/dsrdemo.git
+git clone https://github.com/makerdao/dsr-pymaker-example
 cd dsrdemo
 git submodule update --init --recursive
 ./install.sh
@@ -42,11 +42,11 @@ You can then run the test with:
 
 ### To test on Kovan/Mainnet
 
-Create an executable bash script to easily spin up the demo. Copy the commands below into a new file, and save it as `run-dsrdemo.sh` in the root directory of this repo `dsrdemo`.
+Create an executable bash script to easily spin up the demo. Copy the commands below into a new file, and save it as `run-dsrdemo.sh` in the root directory of this repo `dsr-pymaker-example`.
 
 ```
 #!/bin/bash
-/full/path/to/dsrdemo/bin/dsrdemo \
+/full/path/to/dsr-pymaker-example/bin/dsrdemo \
 	--rpc-host 'sample.ParityNode.com' \
 	--network 'kovan' \
 	--eth-from '0xABCAddress' \
