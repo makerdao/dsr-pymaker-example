@@ -61,7 +61,7 @@ Create an executable bash script to easily spin up the demo. Copy the commands b
 In a terminal navigate to the `dsrdemo` folder and make the script executable by running the following command:
 `chmod +x run-dsrdemo.sh`
 
-Start the demo by running the command `./run-dsrdemo.sh` in the `dsrdemo` folder.
+Start the demo by running the command `./run-dsrdemo.sh` in the `dsr-pymaker-example` folder.
 
 ## License
 
