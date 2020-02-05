@@ -1,0 +1,8 @@
+#!/bin/sh
+dir="$(dirname "$0")"/..
+
+PYTHONPATH=$PYTHONPATH:$dir:$dir/pymaker
+
+export PYTHONPATH
+
+exec python3 -m dsrdemo.dsrdemo $@

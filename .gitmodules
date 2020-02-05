@@ -1,0 +1,4 @@
+[submodule "pymaker"]
+	path = pymaker
+	url = https://github.com/makerdao/pymaker.git
+	branch = master
