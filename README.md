@@ -65,7 +65,7 @@ Start the demo by running the command `./run-dsrdemo.sh` in the `dsr-pymaker-exa
 
 ## License
 
-See [COPYING](https://github.com/makerdao/dsrdemo/blob/master/COPYING) file.
+See [COPYING](https://github.com/makerdao/dsr-pymaker-example/blob/master/COPYING) file.
 
 
 ### Disclaimer
