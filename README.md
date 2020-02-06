@@ -13,7 +13,10 @@ The example implements:
 
 ## Installation
 
-This project uses *Python 3.6.6*.
+Prerequisites:
+- [Python v3.6.6](https://www.python.org/downloads/release/python-366/)
+- [virtualenv](https://virtualenv.pypa.io/en/latest/)
+    - This project requires *virtualenv* to be installed if you want to use Maker's python tools. This helps with making sure that you are running the right version of python and checks that all of the pip packages that are installed in the **install.sh** are in the right place and have the right versions.
 
 In order to clone the project and install required third-party packages please execute:
 ```
