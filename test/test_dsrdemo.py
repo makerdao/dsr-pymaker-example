@@ -24,46 +24,13 @@ import logging
 
 from web3 import Web3
 
-from dsrdemo.dsrdemo import DsrDemo
+from dsrdemo.dsr_proxy_demo import DsrProxyDemo
+from dsrdemo.dsr_manager_demo import DsrManagerDemo
 from pymaker import Address
 from pymaker.deployment import DssDeployment
 from pymaker.numeric import Wad, Rad
 
-from tests.test_dss import wrap_eth, frob
-
-
-def create_dai_token(mcd: DssDeployment, our_address: Address):
-    collateral = mcd.collaterals['ETH-B']
-    ilk = collateral.ilk
-    # TestVat.ensure_clean_urn(mcd, collateral, our_address)
-    initial_dai = mcd.vat.dai(our_address)
-    wrap_eth(mcd, our_address, Wad.from_number(9))
-
-    # Ensure our collateral enters the urn
-    collateral_balance_before = collateral.gem.balance_of(our_address)
-    collateral.approve(our_address)
-    assert collateral.adapter.join(our_address, Wad.from_number(9)).transact()
-    assert collateral.gem.balance_of(our_address) == collateral_balance_before - Wad.from_number(9)
-
-    # Add collateral without generating Dai
-    frob(mcd, collateral, our_address, dink=Wad.from_number(3), dart=Wad(0))
-    print(f"After adding collateral:         {mcd.vat.urn(ilk, our_address)}")
-    assert mcd.vat.urn(ilk, our_address).ink == Wad.from_number(3)
-    assert mcd.vat.urn(ilk, our_address).art == Wad(0)
-    assert mcd.vat.gem(ilk, our_address) == Wad.from_number(9) - mcd.vat.urn(ilk, our_address).ink
-    assert mcd.vat.dai(our_address) == initial_dai
-
-    # Generate some Dai
-    frob(mcd, collateral, our_address, dink=Wad(0), dart=Wad.from_number(153))
-    print(f"After generating dai:            {mcd.vat.urn(ilk, our_address)}")
-    assert mcd.vat.urn(ilk, our_address).ink == Wad.from_number(3)
-    assert mcd.vat.urn(ilk, our_address).art == Wad.from_number(153)
-    assert mcd.vat.dai(our_address) == initial_dai + Rad.from_number(153)
-    assert mcd.vat.hope(mcd.dai_adapter.address).transact(from_address=our_address)
-    assert mcd.dai_adapter.exit(our_address, Wad.from_number(153)).transact(from_address=our_address)
-    assert mcd.dai.balance_of(our_address) == Wad.from_number(153)
-
-
+from tests.test_dsrmanager import mint_dai
 
 def print_out(testName: str):
     print("")
@@ -73,12 +40,23 @@ def print_out(testName: str):
 
 class TestDsrDemo:
 
-    def test_dsrdemo(self, mcd: DssDeployment, our_address: Address, dsrdemo: DsrDemo):
-        print_out("test_dsrdemo")
+    def test_dsr_proxy_demo(self, mcd: DssDeployment, our_address: Address, dsr_proxy_demo: DsrProxyDemo):
+        print_out("test_dsr_proxy_demo")
 
-        create_dai_token(mcd, our_address)
-        assert mcd.dai.balance_of(our_address) == Wad.from_number(153)
-        dsrdemo.main()
-        #assert Wad(153000000000315522920) != Wad(153000000000000000000)
-        assert mcd.dai.balance_of(our_address) != Wad.from_number(153)
+        dai = Wad.from_number(28)
+        mint_dai(mcd=mcd, amount=dai, ilkName='ETH-A', our_address=our_address)
+
+        dsr_proxy_demo.main()
+
+        assert mcd.dai.balance_of(our_address) > dai
+
+    def test_dsr_manager_demo(self, mcd: DssDeployment, our_address: Address, dsr_manager_demo: DsrManagerDemo):
+        print_out("test_dsr_manager_demo")
+
+        dai = Wad.from_number(28)
+        mint_dai(mcd=mcd, amount=dai, ilkName='ETH-A', our_address=our_address)
+
+        dsr_manager_demo.main()
+
+        assert mcd.dai.balance_of(our_address) > dai
 

@@ -1,13 +1,21 @@
 # Dai Savings Rate Python Integration Example
 
+[![Build Status](https://travis-ci.org/makerdao/dsr-pymaker-example.svg?branch=master)](https://travis-ci.org/makerdao/dsr-pymaker-example)
+[![codecov](https://codecov.io/gh/makerdao/dsr-pymaker-example/branch/master/graph/badge.svg)](https://codecov.io/gh/makerdao/dsr-pymaker-example)
+
 This code example shows how you can integrate Dai Savings Rate functionality using the Maker Python API: Pymaker.
 
-The example implements:
+The `dsr_manager_demo` example uses DsrManager and implements:
+* Adding Dai to the DSR
+* Retrieving Dai balance in DSR
+* Retrieving Dai from the DSR
 
-- Building a user proxy
-- Adding Dai to the DSR
-- Retrieving DSR balance
-- Retrieving Dai from the DSR
+The `dsr_proxy_demo` example uses a DSProxy and implements:
+
+* Building a user proxy
+* Adding Dai to the DSR
+* Retrieving Dai balance in DSR
+* Retrieving Dai from the DSR
 
 **We reccommend that first time users go through the [DSR Integration Guide](https://github.com/makerdao/developerguides/blob/master/dai/dsr-integration-guide/dsr-integration-guide-01.md) to get an initial understanding of how Dai Savings Rate works.**
 
@@ -45,11 +53,11 @@ You can then run the test with:
 
 ### To test on Kovan/Mainnet
 
-Create an executable bash script to easily spin up the demo. Copy the commands below into a new file, and save it as `run-dsrdemo.sh` in the root directory of this repo `dsr-pymaker-example`.
+Create an executable bash script to easily spin up the demo. Copy the commands below into a new file, and save it as `run-dsr-manager-demo.sh` in the root directory of this repo `dsr-pymaker-example`.
 
 ```
 #!/bin/bash
-/full/path/to/dsr-pymaker-example/bin/dsrdemo \
+/full/path/to/dsr-pymaker-example/bin/dsr-manager-demo \
 	--rpc-host 'sample.ParityNode.com' \
 	--network 'kovan' \
 	--eth-from '0xABCAddress' \
@@ -62,9 +70,9 @@ Create an executable bash script to easily spin up the demo. Copy the commands b
 - `--eth-key` should be set to the private key file and pass phrase for the above public key.
 
 In a terminal navigate to the `dsrdemo` folder and make the script executable by running the following command:
-`chmod +x run-dsrdemo.sh`
+`chmod +x run-dsr-manager-demo.sh`
 
-Start the demo by running the command `./run-dsrdemo.sh` in the `dsr-pymaker-example` folder.
+Start the demo by running the command `./run-dsr-manager-demo.sh` in the `dsr-pymaker-example` folder.
 
 ## License
 

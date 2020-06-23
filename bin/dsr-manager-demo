@@ -5,4 +5,4 @@ PYTHONPATH=$PYTHONPATH:$dir:$dir/lib/pymaker
 
 export PYTHONPATH
 
-exec python3 -m dsrdemo.dsrdemo $@
+exec python3 -m dsrdemo.dsr_manager_demo $@

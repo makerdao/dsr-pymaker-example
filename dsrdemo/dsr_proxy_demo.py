@@ -13,8 +13,8 @@ from pymaker.keys import register_keys
 from pymaker.lifecycle import Lifecycle
 
 
-class DsrDemo:
-    """ DSR Python Integration Example
+class DsrProxyDemo:
+    """ DSR Python Integration Example using DSProxy
     """
     # _DAI_AMOUNT is the amount of Dai we are adding to the DSR in this demo. Set to 1 Dai as standard.
     _DAI_AMOUNT = Wad.from_number(1)
@@ -81,6 +81,11 @@ class DsrDemo:
         # Calculating the balance of our Dai in DSR.
         self.DsrBalance = self.dsr.get_balance(self._USER_PROXY.address)
 
+        # Note: if the DSR is 0%, the resulting Dai balance may be 1 wei less
+        # than what deposited (due to rounding)
+        print(f"Wait 1 minute for Dai to accrue DSR proceeds")
+        time.sleep(60)
+
         # Retrieving all Dai from DSR.
         self.exitAllDaiFromDsr()
 
@@ -104,4 +109,4 @@ class DsrDemo:
         self.dsr.exit_all(self._USER_PROXY).transact()
 
 if __name__ == '__main__':
-    DsrDemo(sys.argv[1:]).main()
+    DsrProxyDemo(sys.argv[1:]).main()

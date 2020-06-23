@@ -28,7 +28,8 @@ from pymaker.dss import Vat, Vow, Cat, Jug, Pot
 from pymaker.shutdown import ShutdownModule, End
 from pymaker.keys import register_keys
 
-from dsrdemo.dsrdemo import DsrDemo
+from dsrdemo.dsr_proxy_demo import DsrProxyDemo
+from dsrdemo.dsr_manager_demo import DsrManagerDemo
 
 
 @pytest.fixture(scope='session')
@@ -78,9 +79,15 @@ def mcd(web3) -> DssDeployment:
     return deployment
 
 @pytest.fixture(scope="session")
-def dsrdemo(mcd: DssDeployment, our_address: Address) -> DsrDemo:
-    dsrdemo = DsrDemo(args=args(f"--eth-from {our_address} --network testnet"), web3=mcd.web3)
-    assert isinstance(dsrdemo, DsrDemo)
+def dsr_proxy_demo(mcd: DssDeployment, our_address: Address) -> DsrProxyDemo:
+    dsrdemo = DsrProxyDemo(args=args(f"--eth-from {our_address} --network testnet"), web3=mcd.web3)
+    assert isinstance(dsrdemo, DsrProxyDemo)
+    return dsrdemo
+
+@pytest.fixture(scope="session")
+def dsr_manager_demo(mcd: DssDeployment, our_address: Address) -> DsrManagerDemo:
+    dsrdemo = DsrManagerDemo(args=args(f"--eth-from {our_address} --network testnet"), web3=mcd.web3)
+    assert isinstance(dsrdemo, DsrManagerDemo)
     return dsrdemo
 
 def args(arguments: str) -> list:
